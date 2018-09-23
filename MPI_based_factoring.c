@@ -4,11 +4,8 @@
 // to compile: mpicc -std=c99 -Wall MPI_based_factoring.c -o MPI_based_factoring
 // to run: mpirun -np num_of_cores ./MPI_based_factoring userinput_number
 
-
 	#include <mpi.h>
 	#include <stdio.h>
-	// #include <stdlib.h>
-	// #include <limits.h>
 
 	int main(int argc, char *argv[]){
 
@@ -19,7 +16,7 @@
 		double startTime, endTime, elapsed;
 		unsigned long long bignumber;
 
-		MPI_Init(&argc, &argv);  					//sets up the MPI. Always this line!
+		MPI_Init(&argc, &argv);  									//sets up the MPI. Always this line!
 		MPI_Comm_size(MPI_COMM_WORLD, &comm_sz);	// Get the number of processes
 		MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);	// Get my rank among all the processes
 
@@ -35,9 +32,7 @@
 		startTime = MPI_Wtime();
 
 		for (int i = my_rank+1; i <= bignumber; i+=comm_sz){
-			if ((bignumber%i)==0){
-				localsum += 1;
-			}
+			if ((bignumber%i)==0){ localsum += 1; }
 		}
 
 		endTime = MPI_Wtime();
@@ -48,7 +43,6 @@
 
 		MPI_Barrier(MPI_COMM_WORLD);
 		MPI_Reduce(&localsum,&globalsum,1,MPI_INT,MPI_SUM,0,MPI_COMM_WORLD);
-		// MPI_Barrier(MPI_COMM_WORLD);
 
 		if (my_rank == 0){
 			endTime = MPI_Wtime();
