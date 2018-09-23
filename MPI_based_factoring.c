@@ -9,8 +9,8 @@
 
 int main(int argc, char *argv[]){
 
-	int comm_sz; 					// Number of processes
-	int my_rank; 					// My process rank
+	int comm_sz;	// Number of processes
+	int my_rank;	// My process rank
 	int localsum = 0;
 	int globalsum = 0;
 	double startTime, endTime, elapsed;
@@ -56,4 +56,4 @@ int main(int argc, char *argv[]){
 
 	MPI_Finalize();
 	return 0;
-	}
+}
